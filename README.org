@@ -1,0 +1,56 @@
+#+TITLE: Maucauco
+
+Maucauco is a type checker for a class-based object-oriented
+programming language with ownership types.  This implementation is
+inspired by the two papers FKF98 and CPN98 (see [[#references][References]]).
+
+* Architectures
+
+The checker passes through different phases:
+1. Transforms the AST into an Intermediate Representation (see
+   [[file:desugar.rkt]]).
+2. Collects meta values such as the set a defined class, field and
+   methods. Eliminates modules. Check no duplicate identifiers. (see
+   [[file:meta.rkt]]).
+3. Type checks the program for data values -- based on FKF98 (see
+   [[file:simply-typed.rkt]]).
+4. Type checks the program for ownership -- based on CPN98 (see
+   [[file:ownership.rkt]]).
+
+* References
+:PROPERTIES:
+:CUSTOM_ID: references
+:END:
+
+#+NAME: FKF98
+#+begin_src bibtex
+@InProceedings{FKF98,
+  author =       {Matthew Flatt and Shriram Krishnamurthi and Matthias
+                  Felleisen},
+  title =        {Classes and Mixins},
+  booktitle =    {{POPL} '98, Proceedings of the 25th {ACM}
+                  {SIGPLAN-SIGACT} Symposium on Principles of
+                  Programming Languages, San Diego, CA, USA, January
+                  19-21, 1998},
+  year =         1998,
+  pages =        {171--183},
+  doi =          {10.1145/268946.268961},
+  url =          {https://doi.org/10.1145/268946.268961},
+}
+#+end_src
+
+#+NAME: CPN98
+#+begin_src bibtex
+@InProceedings{CPN98,
+  author =       {David G. Clarke and John Potter and James Noble},
+  title =        {Ownership Types for Flexible Alias Protection},
+  booktitle =    {Proceedings of the 1998 {ACM} {SIGPLAN} Conference
+                  on Object-Oriented Programming Systems, Languages
+                  {\&} Applications {(OOPSLA} '98), Vancouver, British
+                  Columbia, Canada, October 18-22, 1998.},
+  pages =        {48--64},
+  year =         1998,
+  url =          {https://doi.org/10.1145/286936.286947},
+  doi =          {10.1145/286936.286947}
+}
+#+end_src
