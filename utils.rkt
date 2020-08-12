@@ -31,12 +31,12 @@
 (provide (except-out (all-defined-out)
                      private:check-stx=?-w/-msg))
 
-(define-for-syntax (stx->string stx)
+(define-for-syntax (stx->string stx #:newline? [newline? #f])
   (call-with-output-string
    (λ (out-str)
      (pretty-print (syntax->datum stx)
                    out-str
-                   #:newline? #f))))
+                   #:newline? newline?))))
 
 (define-logger sclang)
 

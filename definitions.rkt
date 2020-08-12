@@ -508,13 +508,28 @@
     (syntax-parser
       [(_ ID:id RULE:expr ...)
        #'(define (ID stx)
+
            (dbg stx #:ctx ID)
-           (syntax-parse stx
-             #:literal-sets [(keyword-lits #:at ID)
-                             (expr-lits #:at ID)
-                             (type-lits #:at ID)]
-             RULE ...
-             ))])))
+
+           (define res
+             (syntax-parse stx
+               #:literal-sets [(keyword-lits #:at ID)
+                               (expr-lits #:at ID)
+                               (type-lits #:at ID)]
+               RULE ...))
+
+           (define (dbg-type ID type)
+             (log-sclang-debug ";                             ~a : ~a"
+                               (stx->string ID #:newline? #f)
+                               (stx->string type #:newline? #f)))
+           (cond
+             [(and (syntax? res) (syntax-property res 'b-type))
+              => (λ (type) (dbg-type stx type))]
+             [(and (syntax? res) (syntax-property res 'ow-type))
+              => (λ (type) (dbg-type stx type))]
+             )
+
+           res)])))
 
 (require 'definition/untyped)
 
