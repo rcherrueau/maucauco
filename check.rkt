@@ -24,7 +24,8 @@
 ;; - meta:DS is the map of definitions with return ownership type as
 ;;   value
 
-(require "utils.rkt"
+(require racket/match
+         "utils.rkt"
          ;; phases
          "desugar.rkt"
          "meta.rkt"
@@ -38,14 +39,14 @@
 ;;
 ;; (: check (Syntax -> (Values Syntax meta:CS meta:FS meta:DS)))
 (define (check prog)
-  (let*-values
+  (match-let*
       (;; Desugaring into the IR
-       [(prog)                    (ir> prog)]
+       [prog                           (ir> prog)]
        ;; Meta-information
-       [(meta:CS meta:FS meta:DS) (M> prog)]
+       [(list meta:CS meta:FS meta:DS) (M> prog)]
        ;; Simply type Checks
-       [(prog)                    (?> prog meta:CS meta:FS meta:DS)]
+       [prog                           (?> prog meta:CS meta:FS meta:DS)]
        ;; Ownership type checks
-       [(prog)                    (Θ> prog meta:CS meta:FS meta:DS)])
+       [prog                           (Θ> prog meta:CS meta:FS meta:DS)])
     ;; Returns prog in IR + meta-info
     (values prog meta:CS meta:FS meta:DS)))

@@ -41,6 +41,8 @@
 (define-phase (M> stx)
   (M-prog stx))
 
+;; Returns a triplet of meta values
+;; (Syntax -> (List CS FS DS))
 (define-rules M-prog
   ;; (import [Prelude "prelude.rkt"]
   ;;         [IO      "io.rkt"]  ...)
@@ -69,7 +71,7 @@
            (sequence modules))))
 
    ;; Put everything together
-   (values
+   (list
     (apply append (cons meta:CS-class meta:CS-modules))
     (apply append (cons meta:FS-class meta:FS-modules))
     (apply append (cons meta:DS-class meta:DS-modules)))])
