@@ -238,6 +238,8 @@
   ;;
   ;;;; The debug placeholder ???
   [??? this-syntax]
+  ;;;; A literal string
+  [STR:str this-syntax]
   ;;;; A bound identifier (from a def or let)
   [ID:id #:when (Γ-member? #'ID)
     this-syntax]

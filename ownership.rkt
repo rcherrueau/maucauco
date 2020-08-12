@@ -277,6 +277,10 @@
    ;; P,Σ,Γ ⊢e ID : Γ(ID)
    (add-τ this-syntax (Γ-ref #'ID))]
 
+  ;; A literal string
+  [STR:str
+   (add-τ this-syntax (mk-ow-type #'String #'world '()))]
+
   ;; [Field Access]
   ;;
   ;; Type checking example:

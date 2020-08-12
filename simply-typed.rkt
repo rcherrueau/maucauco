@@ -284,6 +284,10 @@
    ;; P,Γ ⊢e ID ≫ ID : Γ(ID)
    (add-τ this-syntax (Γ-ref #'ID))]
 
+  ;; A literal string
+  [STR:str
+   (add-τ this-syntax #'String)]
+
   ;; [get]
   [(get-field ~! E FNAME)
    ;; Check P,Γ ⊢e E ≫ ?E : t

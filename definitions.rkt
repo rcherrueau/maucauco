@@ -508,7 +508,7 @@
     (syntax-parser
       [(_ ID:id RULE:expr ...)
        #'(define (ID stx)
-           ;; (dbg stx #:ctx ID)
+           (dbg stx #:ctx ID)
            (syntax-parse stx
              #:literal-sets [(keyword-lits #:at ID)
                              (expr-lits #:at ID)
